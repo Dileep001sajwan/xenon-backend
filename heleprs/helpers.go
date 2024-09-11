@@ -41,11 +41,9 @@ func HashPassword(password string) (string, error) {
 }
 
 func VerifyPassword(hashedPassword string, providedPassword string) (bool, string) {
-	// Compare the hashed password from the database and the provided plain-text password
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(providedPassword))
 
 	if err != nil {
-		// Return false and a meaningful error message if the passwords do not match
 		return false, "Password is incorrect"
 	}
 	return true, "Password is correct"
