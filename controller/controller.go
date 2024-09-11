@@ -33,16 +33,16 @@ func SignUp() gin.HandlerFunc {
 			return
 		}
 
-		// Check if the email is already in use
+		
 		var existingUser models.User
 		err := userCollection.FindOne(ctx, bson.M{"email": user.Email}).Decode(&existingUser)
 
-		// If user is found, return error saying email is already registered
+		
 		if err == nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Email already in use"})
 			return
 		} else if err != mongo.ErrNoDocuments {
-			// If error is not related to document not found, return internal error
+			
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error checking existing user"})
 			return
 		}
